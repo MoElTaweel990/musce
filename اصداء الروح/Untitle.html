@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أصداء الروح</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* التنسيقات الأساسية للصفحة والخلفية */
+        body {
+            margin: 0;
+            overflow: hidden; /* لمنع ظهور شريط التمرير الافتراضي */
+            font-family: 'Lora', serif; /* الخط الرئيسي للصفحة */
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a2a3a 100%); /* خلفية متدرجة */
+            color: #e0e0e0; /* لون النص الافتراضي */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            user-select: none; /* لمنع تحديد النص */
+        }
+
+        /* تأثير الجسيمات في الخلفية */
+        .background-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* لجعلها خلف المحتوى */
+            background-image: radial-gradient(circle, #2f4f6f 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: moveParticles 60s linear infinite; /* حركة بطيئة جدا */
+        }
+
+        @keyframes moveParticles {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: 100% 100%;
+            }
+        }
+
+        /* حاوية المحتوى الرئيسي */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* عنوان الصفحة */
+        header h1 {
+            font-size: 3em;
+            color: #c0c0c0;
+            margin-bottom: 50px;
+            text-shadow: 0 0 10px rgba(192, 192, 192, 0.3);
+        }
+
+        /* قسم الكلمات المتدفقة */
+        .flowing-words-section {
+            position: relative;
+            min-height: 300px; /* لتوفير مساحة للكلمات المتدفقة */
+            margin-bottom: 80px;
+        }
+
+        .flowing-word {
+            position: absolute;
+            opacity: 0.6;
+            transition: opacity 0.5s ease, transform 0.5s ease, font-size 0.5s ease;
+            white-space: nowrap; /* لمنع الكلمات من الانقسام */
+            color: #a0a0a0;
+            font-size: 0.9em;
+            cursor: default;
+            filter: blur(0.5px); /* تأثير ضبابي خفيف */
+        }
+
+        .flowing-word:hover {
+            opacity: 1;
+            transform: scale(1.1);
+            color: #e0e0e0;
+            filter: blur(0);
+        }
+
+        /* قسم مرآة الروح */
+        .soul-mirror-section {
+            margin-top: 50px;
+            margin-bottom: 80px;
+        }
+
+        .soul-mirror-box {
+            width: 70%;
+            max-width: 600px;
+            min-height: 150px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(80, 80, 80, 0.5);
+            border-radius: 10px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .soul-mirror-box:hover {
+            background: rgba(0, 0, 0, 0.6);
+            border-color: rgba(120, 120, 120, 0.7);
+        }
+
+        .mirror-text {
+            font-size: 1.8em;
+            color: #d0d0d0;
+            text-align: center;
+            transition: opacity 1s ease;
+            opacity: 1; /* يظهر النص في البداية */
+        }
+
+        .mirror-text.fade-out {
+            opacity: 0;
+        }
+
+        .mirror-text.fade-in {
+            opacity: 1;
+        }
+
+        /* رسالة التذييل */
+        .sadness-message {
+            margin-top: 100px;
+            font-size: 0.8em;
+            color: #707070;
+        }
+
+        /* تعريف الـkeyframes لحركة الكلمات المتدفقة */
+        @keyframes flow {
+            from {
+                transform: translate(var(--start-x), var(--start-y));
+            }
+            to {
+                transform: translate(var(--end-x), var(--end-y));
+            }
+        }
+
+        /* زر التحكم بالموسيقى */
+        #toggleMusic {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit; /* لورا */
+            font-size: 0.9em;
+            transition: background 0.3s ease;
+        }
+
+        #toggleMusic:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        /* تصميم متجاوب للشاشات الأصغر */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+                margin-bottom: 30px;
+            }
+            .mirror-text {
+                font-size: 1.5em;
+            }
+            .soul-mirror-box {
+                min-height: 120px;
+                width: 85%;
+            }
+            .flowing-words-section {
+                min-height: 200px;
+                margin-bottom: 50px;
+            }
+            #toggleMusic {
+                padding: 8px 12px;
+                font-size: 0.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2em;
+            }
+            .mirror-text {
+                font-size: 1.2em;
+            }
+            .flowing-word {
+                font-size: 0.7em;
+            }
+            #toggleMusic {
+                bottom: 10px;
+                left: 10px;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-particles"></div>
+
+    <div class="container">
+        <header>
+            <h1>أصداء الروح</h1>
+        </header>
+
+        <section class="flowing-words-section">
+            </section>
+
+        <section class="soul-mirror-section">
+            <div class="soul-mirror-box" id="soulMirrorBox">
+                <p class="mirror-text">انقر هنا لتشعر...</p>
+            </div>
+        </section>
+
+        <footer class="sadness-message">
+            <p>تذكر، لست وحدك في هذا الشعور.</p>
+        </footer>
+    </div>
+
+    <audio id="backgroundMusic" loop>
+        <source src="F:\اصداء الروح\videoplayback-٢.mp3" type="audio/mpeg">
+        <source src="https://www.chosic.com/wp-content/uploads/2021/04/Emotional-Background-Music.mp3" type="audio/mpeg">
+        ملاحظة: متصفحك لا يدعم تشغيل الصوت.
+    </audio>
+    <button id="toggleMusic">إيقاف الموسيقى</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            const toggleMusicButton = document.getElementById('toggleMusic');
+            const flowingWordsSection = document.querySelector('.flowing-words-section');
+            const soulMirrorBox = document.getElementById('soulMirrorBox');
+            const mirrorText = soulMirrorBox.querySelector('.mirror-text');
+
+            let isMusicPlaying = false; // نبدأ بـ false لأن التشغيل التلقائي غالبًا محظور
+
+            // --- 1. التحكم في الموسيقى ---
+            // دالة لمحاولة تشغيل الموسيقى
+            function tryPlayMusic() {
+                if (!isMusicPlaying) {
+                    backgroundMusic.volume = 0.2; // صوت منخفض
+                    backgroundMusic.play()
+                        .then(() => {
+                            isMusicPlaying = true;
+                            toggleMusicButton.textContent = 'إيقاف الموسيقى';
+                            console.log("Music played successfully.");
+                        })
+                        .catch(e => {
+                            console.log("Music auto-play or manual play failed, user interaction still needed:", e.message);
+                            // نترك الزر على حالته لو فشل التشغيل التلقائي
+                        });
+                }
+            }
+
+            // محاولة التشغيل عند تحميل الصفحة (قد لا تعمل إلا بعد تفاعل المستخدم)
+            tryPlayMusic();
+
+            // تشغيل/إيقاف الموسيقى عند النقر على الزر
+            toggleMusicButton.addEventListener('click', () => {
+                if (isMusicPlaying) {
+                    backgroundMusic.pause();
+                    toggleMusicButton.textContent = 'تشغيل الموسيقى';
+                } else {
+                    tryPlayMusic(); // محاولة التشغيل عند النقر
+                }
+                isMusicPlaying = !isMusicPlaying; // تبديل حالة التشغيل فقط إذا تم النقر
+            });
+
+            // هام: لجعل الموسيقى تعمل بعد أول تفاعل للمستخدم (إذا فشل التشغيل التلقائي)
+            document.body.addEventListener('click', () => {
+                if (!isMusicPlaying) { // إذا لم تكن الموسيقى تعمل بالفعل
+                    tryPlayMusic();
+                }
+            }, { once: true }); // يستمع للنقرة الأولى فقط
+
+
+            // --- 2. الكلمات المتدفقة (Flowing Words) ---
+            const sadWords = [
+                "الوحدة", "الفقد", "الحنين", "الغياب", "اليأس", "الخيبة",
+                "الألم", "الصمت", "الانتظار", "المرارة", "الأسى", "الدموع",
+                "الوداع", "الكسر", "الخذلان", "الشوق", "الظلام", "الضياع",
+                "الحسرة", "الندم", "الفراق", "الذكرى", "الماضي", "الأنين",
+                "الاضطراب", "الخذلان", "الصراع", "الإنكسار", "العزلة",
+                "اللاعودة", "الأوهام", "الأحزان", "الموت", "السكوت"
+            ];
+
+            const quotes = [
+                "الوحدة أعمق من الظلام.",
+                "القلب لا ينسى من خذله.",
+                "أصعب المعارك تلك التي تخوضها مع نفسك.",
+                "لا شيء يؤلم أكثر من الذكريات عندما تتذكرها ولا تستطيع استعادتها.",
+                "بعض الأيام تثقل الروح، وكأنها لا تريد أن تنتهي.",
+                "كم هو صعب أن تشعر بكل هذا ولا تستطيع البوح بكلمة.",
+                "أحيانًا، الهدوء هو أقسى أنواع الصراخ.",
+                "نحن مجرد أصداء لما فقدناه.",
+                "كلما حاولت النسيان، عادت الذكرى لتطعن من جديد.",
+                "أكثر ما يؤلم، أن تصبح غريبًا في مكان كان وطنك يومًا.",
+                "الغياب ليس فراغًا، بل حضور مؤلم لا يزول."
+            ];
+
+            const maxWordsOnScreen = 30; // عدد الكلمات الظاهرة في أي لحظة
+            const wordSpawnInterval = 1500; // وقت ظهور كلمة جديدة بالملي ثانية
+
+            function createFlowingWord(text) {
+                const wordDiv = document.createElement('div');
+                wordDiv.classList.add('flowing-word');
+                wordDiv.textContent = text;
+
+                // تحديد موقع عشوائي مبدئي
+                wordDiv.style.left = `${Math.random() * 90}%`;
+                wordDiv.style.top = `${Math.random() * 80}%`;
+                wordDiv.style.fontSize = `${0.8 + Math.random() * 0.4}em`; // حجم عشوائي
+                wordDiv.style.opacity = `${0.3 + Math.random() * 0.3}`; // شفافية عشوائية
+
+                // حركة عشوائية باستخدام CSS variables
+                const duration = 20 + Math.random() * 30; // مدة الحركة
+                const delay = Math.random() * 5; // تأخير في البداية
+                const startX = (Math.random() - 0.5) * window.innerWidth * 0.5;
+                const startY = (Math.random() - 0.5) * window.innerHeight * 0.5;
+                const endX = (Math.random() - 0.5) * window.innerWidth * 0.5;
+                const endY = (Math.random() - 0.5) * window.innerHeight * 0.5;
+
+                wordDiv.style.setProperty('--start-x', `${startX}px`);
+                wordDiv.style.setProperty('--start-y', `${startY}px`);
+                wordDiv.style.setProperty('--end-x', `${endX}px`);
+                wordDiv.style.setProperty('--end-y', `${endY}px`);
+                wordDiv.style.animation = `flow ${duration}s linear ${delay}s infinite alternate`;
+
+                // إزالة الكلمات القديمة للحفاظ على الأداء
+                if (flowingWordsSection.children.length >= maxWordsOnScreen) {
+                    flowingWordsSection.removeChild(flowingWordsSection.firstElementChild);
+                }
+                flowingWordsSection.appendChild(wordDiv);
+            }
+
+            // إضافة بعض الكلمات فورًا عند التحميل
+            for (let i = 0; i < 10; i++) {
+                createFlowingWord(sadWords[Math.floor(Math.random() * sadWords.length)]);
+            }
+
+            // إضافة الكلمات باستمرار
+            setInterval(() => {
+                const randomType = Math.random();
+                let textToAdd;
+                if (randomType < 0.7) { // 70% كلمات فردية
+                    textToAdd = sadWords[Math.floor(Math.random() * sadWords.length)];
+                } else { // 30% اقتباسات أطول
+                    textToAdd = quotes[Math.floor(Math.random() * quotes.length)];
+                }
+                createFlowingWord(textToAdd);
+            }, wordSpawnInterval);
+
+
+            // --- 3. مرآة الروح (Soul Mirror) ---
+            const profoundSadQuotes = [
+                "لا يمكن للكلمات أن تصف ثقل ما نشعر به أحيانًا.",
+                "القلب المكسور لا يصدر صوتًا، لكنه يحدث ألمًا مدويًا.",
+                "نحن نحمل في أرواحنا قصصًا لا تحكيها سوى الدموع الصامتة.",
+                "الوحدة الحقيقية ليست أن تكون وحيدًا، بل أن تشعر بالوحدة بين الجموع.",
+                "بعض الجروح لا تلتئم، بل تتعايش معنا كجزء من الروح.",
+                "كل ضحكة نخفي وراءها محيطًا من الأحزان التي لا يبصرها أحد.",
+                "تتلاشى الوجوه، وتبقى آثار الخيبة محفورة في القلب.",
+                "المستقبل يبدو رماديًا عندما يغيب عنه الأمل.",
+                "نعيش في عالم لا يفهم الصمت الذي يصرخ في دواخلنا.",
+                "ليس أصعب من وداع من لا تراه عيناك، بل وداع من يسكن روحك."
+            ];
+            let currentQuoteIndex = 0;
+
+            soulMirrorBox.addEventListener('click', () => {
+                mirrorText.classList.add('fade-out'); // بدء تلاشي النص الحالي
+
+                setTimeout(() => {
+                    currentQuoteIndex = (currentQuoteIndex + 1) % profoundSadQuotes.length;
+                    mirrorText.textContent = profoundSadQuotes[currentQuoteIndex];
+                    mirrorText.classList.remove('fade-out');
+                    mirrorText.classList.add('fade-in'); // إظهار النص الجديد
+                }, 1000); // يتطابق مع مدة انتقال CSS
+            });
+        });
+    </script>
+</body>
+</html>
