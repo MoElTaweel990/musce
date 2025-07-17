@@ -229,7 +229,7 @@
     </div>
 
     <audio id="backgroundMusic" loop>
-        <source src="F:\اصداء الروح\videoplayback-٢.mp3" type="audio/mpeg">
+        <source src="[F:\اصداء الروح\videoplayback-٢.mp3](https://s3.dlld.link/youtube-377340ae/Vf3Dheb_qw8/320.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=HlHlYQpM03dUtLYlWDxmFLTm%2F20250717%2Fnl-east-host02%2Fs3%2Faws4_request&X-Amz-Date=20250717T234654Z&X-Amz-Expires=600&X-Amz-Signature=e44ba1c0045a5275297c1ff89f4233d04ffa718d572389629e4a7ffabaf17cf9&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22%D9%85%D9%88%D8%B3%D9%8A%D9%82%D9%89%20%D9%87%D8%A7%D8%AF%D8%A6%D9%87%20%D9%80%20%D8%AD%D8%B2%D9%8A%D9%86%D9%87%20%D9%80%20%D8%A7%D8%B3%D9%85%D9%8A%D8%AA%D9%87%D8%A7%20%D9%81%D8%B1%D9%8A%D8%AD%D9%87%D8%8C%D8%A8%D8%B7%D9%8A%D8%A1%20%7C%20Ad%C4%B1n%C4%B1%20feriha%20koydum%20%7C%20eylem%20akta%C5%9F%20-%20beni%20unutma%20%28%20slowed.mp3%22&x-amz-checksum-mode=ENABLED&x-id=GetObject)" type="audio/mpeg">
         <source src="F:\اصداء الروح\videoplayback-٢.mp3" type="audio/mpeg">
         ملاحظة: متصفحك لا يدعم تشغيل الصوت.
     </audio>
