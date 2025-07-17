@@ -230,7 +230,7 @@
 
     <audio id="backgroundMusic" loop>
         <source src="F:\اصداء الروح\videoplayback-٢.mp3" type="audio/mpeg">
-        <source src="https://www.chosic.com/wp-content/uploads/2021/04/Emotional-Background-Music.mp3" type="audio/mpeg">
+        <source src="F:\اصداء الروح\videoplayback-٢.mp3" type="audio/mpeg">
         ملاحظة: متصفحك لا يدعم تشغيل الصوت.
     </audio>
     <button id="toggleMusic">إيقاف الموسيقى</button>
